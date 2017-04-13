@@ -244,11 +244,11 @@ LearningModel.prototype.checkForUnlockedFeatures = function() {
 		if (this.maxFunctionArgs < 1) {
 			this.maxFunctionArgs++;
 			
-			// Reset the function learning score since introducing
+			// Reset the function learning score -- introducing
 			// arguments is like a new feature
 			if (this.maxFunctionArgs == 1) {
-				this.scores[3].correct = 0;
-				this.scores[3].incorrect = 0;
+				this.scores[5].correct = 0;
+				this.scores[5].incorrect = 0;
 				
 				$('#functionArgsModal').modal('show');
 			}
