@@ -29,12 +29,12 @@ var LearningModel =  function() {
 	this.scores.push(obj);
 	
 	// Learning model paramters
-	this.LEARNING_RATE = 1;
-	this.maxNumber = 3;
+	this.LEARNING_RATE = 2;
+	this.maxNumber = 5;
 	
 	// Default problem generation parameters
-	this.numVariables = 2;
-	this.maxStatements = 1;
+	this.numVariables = 3;
+	this.maxStatements = 2;
 
 	this.ifAllowed = false;
 	this.ifElseAllowed = false;
@@ -123,7 +123,7 @@ LearningModel.prototype.selectFeature = function() {
 LearningModel.prototype.checkForUnlockedFeatures = function() {
 	
 	// Only basic assignments are currrently allowed
-	if (this.scores.length == 1) {
+	if (!this.ifAllowed) {
 		
 		// Determine if enough basic assignments have been answered to
 		// trigger an increase
@@ -149,7 +149,7 @@ LearningModel.prototype.checkForUnlockedFeatures = function() {
 	}
 		
 	// if is the highest feature unlocked
-	if (this.scores.length == 2) {
+	if (this.ifAllowed && !this.ifElseAllowed) {
 		if (this.learningScore(this.scores[1]) < .90) {
 			return;
 		}
@@ -175,7 +175,7 @@ LearningModel.prototype.checkForUnlockedFeatures = function() {
 	}
 	
 	// if-else is the highest feature unlocked
-	if (this.scores.length == 3) {
+	if (this.ifElseAllowed && !this.forAllowed) {
 		if (this.learningScore(this.scores[2]) < .90) {
 			return;
 		}
@@ -184,41 +184,6 @@ LearningModel.prototype.checkForUnlockedFeatures = function() {
 			this.maxStatementsInConditional++;
 		} else if (this.maxLogicalLevel < 2) {
 			this.maxLogicalLevel++;
-		} else {
-			this.functionAllowed = true;
-			this.numFeatures++;
-			
-			var obj = {'feature': this.numFeatures, 'correct': 0,
-								 'incorrect': 0};
-			this.scores.push(obj);
-			
-			$('#functionModal').modal('show');
-		}
-	}
-	
-	// functions are the highest feature unlocked
-	// TODO: fill in rest of progression for function parameters
-	if (this.scores.length == 4) {
-		if (this.learningScore(this.scores[3]) < .90) {
-			return;
-		}
-		
-		if (this.maxFunctionArgs < 2) {
-			this.maxFunctionArgs++;
-			
-			// Reset the function learning score since introducing
-			// arguments is like a new feature
-			if (this.maxFunctionArgs == 1) {
-				this.scores[3].correct = 0;
-				this.scores[3].incorrect = 0;
-				
-				$('#functionArgsModal').modal('show');
-			}
-			
-		} else if (this.maxNumFunctions < 2) {
-			this.maxNumFunctions++;
-		} else if (this.maxFunctionLevel < 2) {
-			this.maxFunctionLevel++;
 		} else {
 			this.maxLogicalLevel = 1;
 			this.forAllowed = true;
@@ -229,12 +194,11 @@ LearningModel.prototype.checkForUnlockedFeatures = function() {
 			this.scores.push(obj);
 			
 			$('#forModal').modal('show');
-
-		}	
+		}
 	}
 	
 	// for loops are the highest feature unlocked
-	if (this.scores.length == 5) {
+	if (this.forAllowed && !this.whileAllowed) {
 		if (this.learningScore(this.scores[4]) < .90) {
 			return;
 		}
@@ -255,7 +219,7 @@ LearningModel.prototype.checkForUnlockedFeatures = function() {
 	}
 	
 	// while loops are the highest feature unlocked
-	if (this.scores.length == 6) {
+	if (this.whileAllowed && !this.functionAllowed) {
 		if (this.learningScore(this.scores[5]) < .90) {
 			return;
 		}
@@ -264,6 +228,42 @@ LearningModel.prototype.checkForUnlockedFeatures = function() {
 			this.numStatements++;
 		} else if (this.numVariables < 4) {
 			this.numVariables++
+		} else {
+			this.functionsAllowed = true;
+			this.numFeatures++;
+			
+			var obj = {'feature': this.numFeatures, 'correct': 0,
+								 'incorrect': 0};
+			this.scores.push(obj);
+			
+			$('#functionModal').modal('show');
+		}	
+	}
+	
+	
+	// functions are the highest feature unlocked
+	// TODO: fill in rest of progression for function parameters
+	if (this.functionAllowed) {
+		if (this.learningScore(this.scores[3]) < .90) {
+			return;
+		}
+		
+		if (this.maxFunctionArgs < 2) {
+			this.maxFunctionArgs++;
+			
+			// Reset the function learning score since introducing
+			// arguments is like a new feature
+			if (this.maxFunctionArgs == 1) {
+				this.scores[3].correct = 0;
+				this.scores[3].incorrect = 0;
+				
+				$('#functionArgsModal').modal('show');
+			}
+			
+		} else if (this.maxNumFunctions < 2) {
+			this.maxNumFunctions++;
+		} else if (this.maxFunctionLevel < 2) {
+			this.maxFunctionLevel++;
 		} else {
 			$('#doneModal').modal('show');
 		}	
