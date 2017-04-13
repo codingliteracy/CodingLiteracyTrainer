@@ -12,7 +12,7 @@ var Problem = function(model) {
   
   this.model = model;
   
-  this.functionNames = ['foo', 'bar', 'baz']
+  this.functionNames = ['f', 'g', 'h']
   
   // Bookkeeping during problem generation
   this.currentLogicalLevel = 0;
