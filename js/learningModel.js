@@ -166,7 +166,7 @@ LearningModel.prototype.checkForUnlockedFeatures = function() {
 			return;
 		}
 		
-		if (this.maxStatements < 4) {
+		if (this.maxStatements < 3) {
 			this.maxStatements++;
 		} else if (this.maxStatementsInConditional < 2) {
 			this.maxStatementsInConditional++;
