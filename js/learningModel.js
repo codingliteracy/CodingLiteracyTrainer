@@ -16,9 +16,9 @@ var LearningModel =  function() {
 	//   1. assignments
 	//   2. if
 	//   3. if-else
-	//   4. functions
-	//   5. for loops
-	//   6. while loops
+	//   4. for loops
+	//   5. while loops
+	//   6. functions
 	//
 	// Only assignments are initially unlocked
 	this.numFeatures = 1;
@@ -30,10 +30,10 @@ var LearningModel =  function() {
 	
 	// Learning model paramters
 	this.LEARNING_RATE = 2;
-	this.maxNumber = 3;
+	this.maxNumber = 2;
 	
 	// Default problem generation parameters
-	this.numVariables = 3;
+	this.numVariables = 2;
 	this.maxStatements = 2;
 
 	this.ifAllowed = false;
@@ -124,6 +124,19 @@ LearningModel.prototype.checkForUnlockedFeatures = function() {
 	
 	// Basic assignments are the only unlocked feature
 	if (!this.ifAllowed) {
+		
+		// Increase numbers after answering first question
+		if (this.learningScore(this.scores[0]) < .50) {
+			return;
+		}
+		
+		if (this.maxNumber < 3) {
+			this.maxNumber = 3;
+		}
+		
+		if (this.numVariables < 3) {
+			this.numVariables++;
+		}
 		
 		// Determine if enough basic assignments have been answered to
 		// trigger an increase
@@ -233,7 +246,6 @@ LearningModel.prototype.checkForUnlockedFeatures = function() {
 			$('#functionModal').modal('show');
 		}	
 	}
-	
 	
 	// Functions have been unlocked
 	if (this.functionAllowed) {

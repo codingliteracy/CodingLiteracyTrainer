@@ -10,6 +10,8 @@
 // Returns: the new Problem object
 var Problem = function(model) {
   
+  this.DEBUG = true;  // Log answers to console
+  
   this.model = model;
   
   this.functionNames = ['f', 'g', 'h']
@@ -125,24 +127,34 @@ Problem.prototype.generateVariableDeclarations = function() {
     statement += this.localVars[i].name + ' = ';
     
     if (i == 0) {
-      statement += '1';
-      this.localVars[i].value = 1;
+      var num = Math.ceil(Math.random() * this.model.maxNumber);
+      statement += num;
+      this.localVars[i].value = num;
     } else {
     
       // Try to pick two defined variables
       var firstVar = this.chooseRandDefinedVar(this.localVars[i]);
       var secondVar = this.chooseRandDefinedVar(this.localVars[i]);
     
-      // Combine a single defined variable with a constant
+      // Generate a statement with only one defined variable
       if (firstVar == secondVar) {
         var num = Math.ceil(Math.random() * this.model.maxNumber);
     
-        statement += firstVar.name + ' + ' + num;
-        this.localVars[i].value = firstVar.value + num;
-        firstVar.free = true;
+        // Assign a constant by itself
+        if (Math.random() < .5) {
+          statement += num;
+          this.localVars[i].value = num;
+        }
+        
+        // Combine a single defined variable with a constant
+        else {
+          statement += firstVar.name + ' + ' + num;
+          this.localVars[i].value = firstVar.value + num;
+          firstVar.free = true;
+        }
       }
       
-      // Case where there are two defined variables
+      // Generate a statement with two defined variables
       else {
         statement += firstVar.name + ' + ' + secondVar.name;
         this.localVars[i].value = firstVar.value + secondVar.value;
@@ -775,6 +787,8 @@ Problem.prototype.generate = function() {
   this.program = this.program.replace('\n\n\n', '\n\n');
 
   // Output answer to the console for debugging
-  console.log(this.answer);
+  if (this.DEBUG) {
+    console.log(this.answer);
+  }
 }
 
