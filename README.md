@@ -10,7 +10,7 @@ COLT generates a random program, presents it to a user, and asks a question abou
 Our learning model is based on a framework called Adaptive Intrinsic Curiosity. Inspired by [Lisa Meeden’s work](http://www.cs.swarthmore.edu/~meeden) in developmental robotics, AIC attempts to identify the right level of difficulty for a learner, avoiding both “plateaus,” where problems are too easy to be interesting, and “mountains,” where they’re too difficult.
 
 ## Implementation
-COLT is front-end web application. Its code, including the learning model and random program generation algorithms, are written in JavaScript. It uses the Bootstrap framework for layout and styling.
+COLT is a front-end web application. Its code, including the learning model and random program generation algorithms, are written in JavaScript. It uses the Bootstrap framework for layout and styling.
 
 ## Authors
 COLT was created by Neeraj Chatlani and [Dan Myers](http://dansmyers.github.io) at [Rollins College](http://www.rollins.edu).
