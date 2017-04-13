@@ -87,7 +87,7 @@ LearningModel.prototype.desirability = function(feature) {
 }
 
 
-/*** Selects a feature to add to a problem ***/
+//*** Selects a feature to add to a problem ***//
 //
 // Selection is based on current learning scores weighted towards
 // features that have roughly balanced numbers of correct and 
@@ -119,7 +119,7 @@ LearningModel.prototype.selectFeature = function() {
 }
 
 
-/*** Check for newly unlocked features ***/
+//*** Check for newly unlocked features ***//
 LearningModel.prototype.checkForUnlockedFeatures = function() {
 	
 	// Basic assignments are the only unlocked feature
