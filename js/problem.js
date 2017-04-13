@@ -639,20 +639,8 @@ Problem.prototype.generateStatement = function() {
         done = true;
         break;
         
-      // Function
-      case 4:
-        if (!this.model.functionAllowed 
-            || this.currentFunctionLevel >= this.model.maxFunctionLevel
-            || this.numGeneratedFunctions >= this.model.maxNumFunctions) {
-          continue;
-        }
-        
-        statement = this.generateFunction();
-        done = true;
-        break;
-        
       // for
-      case 5:
+      case 4:
         if (!this.model.forAllowed) {
           continue;
         }
@@ -662,12 +650,24 @@ Problem.prototype.generateStatement = function() {
         break;
         
       // while
-      case 6:
+      case 5:
         if (!this.model.whileAllowed) {
           continue;
         }
       
         statement = this.generateWhile();
+        done = true;
+        break;
+        
+      // Function
+      case 6:
+        if (!this.model.functionAllowed 
+            || this.currentFunctionLevel >= this.model.maxFunctionLevel
+            || this.numGeneratedFunctions >= this.model.maxNumFunctions) {
+          continue;
+        }
+          
+        statement = this.generateFunction();
         done = true;
         break;
     }

@@ -215,7 +215,7 @@ LearningModel.prototype.checkForUnlockedFeatures = function() {
 	}
 	
 	// while loops have been unlocked
-	if (this.whileAllowed && !this.functionsAllowed) {
+	if (this.whileAllowed && !this.functionAllowed) {
 		if (this.learningScore(this.scores[4]) < .90) {
 			return;
 		}
@@ -223,7 +223,7 @@ LearningModel.prototype.checkForUnlockedFeatures = function() {
 		if (this.numStatements < 5) {
 			this.numStatements++;
 		} else {
-			this.functionsAllowed = true;
+			this.functionAllowed = true;
 			this.numFeatures++;
 			
 			var obj = {'feature': this.numFeatures, 'correct': 0,
@@ -236,7 +236,7 @@ LearningModel.prototype.checkForUnlockedFeatures = function() {
 	
 	
 	// Functions have been unlocked
-	if (this.functionsAllowed) {
+	if (this.functionAllowed) {
 		if (this.learningScore(this.scores[5]) < .90) {
 			return;
 		}
