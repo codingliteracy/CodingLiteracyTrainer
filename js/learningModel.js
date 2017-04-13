@@ -216,7 +216,7 @@ LearningModel.prototype.checkForUnlockedFeatures = function() {
 		if (this.maxLogicalLevel < 2) {
 			this.maxLogicalLevel++;
 		} else {
-			this.maxLogicalLevel = 2;
+			this.maxLogicalLevel = 1;
 			this.whileAllowed = true;
 			this.numFeatures++;
 			
@@ -234,7 +234,10 @@ LearningModel.prototype.checkForUnlockedFeatures = function() {
 			return;
 		}
 		
-		if (this.numStatements < 5) {
+		if (this.maxLogicalLevel < 2) {
+			this.maxLogicalLevel++;
+		}
+		else if (this.numStatements < 5) {
 			this.numStatements++;
 		} else {
 			this.functionAllowed = true;
