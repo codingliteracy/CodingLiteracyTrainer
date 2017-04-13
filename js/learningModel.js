@@ -195,6 +195,7 @@ LearningModel.prototype.checkForUnlockedFeatures = function() {
 			this.maxLogicalLevel++;
 		} else {
 			this.maxLogicalLevel = 1;
+			this.numStatement = 3;
 			this.forAllowed = true;
 			this.numFeatures++;
 			
