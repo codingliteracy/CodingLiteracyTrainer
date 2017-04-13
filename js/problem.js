@@ -139,19 +139,9 @@ Problem.prototype.generateVariableDeclarations = function() {
       // Generate a statement with only one defined variable
       if (firstVar == secondVar) {
         var num = Math.ceil(Math.random() * this.model.maxNumber);
-    
-        // Assign a constant by itself
-        if (Math.random() < .5) {
-          statement += num;
-          this.localVars[i].value = num;
-        }
-        
-        // Combine a single defined variable with a constant
-        else {
-          statement += firstVar.name + ' + ' + num;
-          this.localVars[i].value = firstVar.value + num;
-          firstVar.free = true;
-        }
+        statement += firstVar.name + ' + ' + num;
+        this.localVars[i].value = firstVar.value + num;
+        firstVar.free = true;
       }
       
       // Generate a statement with two defined variables
