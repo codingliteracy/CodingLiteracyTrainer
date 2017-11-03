@@ -33,18 +33,18 @@ var LearningModel =  function() {
   this.maxNumber = 2;
   
   // Default problem generation parameters
-  this.numVariables = 2;
-  this.maxStatements = 2;
+  this.numVariables = 4;
+  this.maxStatements = 5;
 
-  this.ifAllowed = false;
+  this.ifAllowed = true;
   this.ifElseAllowed = false;
-  this.maxStatementsInConditional = 1;
-  this.maxLogicalLevel = 1;
+  this.maxStatementsInConditional = 2;
+  this.maxLogicalLevel = 2;
   
   this.forAllowed = false;
   this.whileAllowed = false;
 
-  this.functionAllowed = false;
+  this.functionAllowed = true;
   this.maxFunctionLevel = 1;
   this.maxFunctionVariables = 3;
   this.maxNumFunctions = 1;
